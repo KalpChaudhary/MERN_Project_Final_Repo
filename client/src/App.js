@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import { themeSettings } from "./theme";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import HomePage from "./scenes/HomePage/HomePage.jsx";
+import LoginPage from "./scenes/LoginPage/LoginPage.jsx";
+import ProfilePage from "./scenes/ProfilePage/ProfilePage.jsx";
+//import Navbar from "./scenes/Navbar/Navbar";
 
 function App() {
+  const mode = useSelector((state) => state.mode);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
+          </Routes>
+        </ThemeProvider>
+      </BrowserRouter>
     </div>
   );
 }
