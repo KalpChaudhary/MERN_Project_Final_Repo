@@ -1,13 +1,13 @@
-
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { themeSettings } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import HomePage from "./scenes/HomePage/HomePage.jsx";
-import LoginPage from "./scenes/LoginPage/LoginPage.jsx";
-import ProfilePage from "./scenes/ProfilePage/ProfilePage.jsx";
+import HomePage from "./scenes/HomePage";
+import LoginPage from "./scenes/LoginPage";
+import ProfilePage from "./scenes/ProfilePage";
+import Navbar from "scenes/Navbar";
 //import Navbar from "./scenes/Navbar/Navbar";
 
 function App() {
@@ -19,7 +19,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
+            {/* <Route path="/" element={<Navbar />} /> */}
             <Route path="/" element={<LoginPage />} />
+            <Route path="/navbar" element={<Navbar />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Routes>

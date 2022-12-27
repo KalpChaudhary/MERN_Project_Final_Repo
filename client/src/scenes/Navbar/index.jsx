@@ -31,7 +31,7 @@ const Navbar = () => {
   const [isMobilemenuToggled, setIsMobilemenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  //const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const theme = useTheme();
 
@@ -41,11 +41,11 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `${user.firstName} ${user.lastName}`;
+  //const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
-      <FlexBetween>
+      <FlexBetween gap="1rem">
         <Typography
           fontSize="clamp(1rem, 2rem , 2.25rem)"
           fontWeight="bold"
@@ -58,14 +58,14 @@ const Navbar = () => {
             },
           }}
         >
-          MERN Social App
+          Kalp
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
-            backgroundColor={neutralDark}
-            borderRadius="9px"
+            backgroundColor={neutralLight}
+            borderRadius="5px"
             gap="3rem"
-            padding="0,1rem 1.5rem"
+            padding="0.1rem 1.5rem"
           >
             <InputBase placeholder="Search ..." />
             <IconButton>
@@ -76,8 +76,8 @@ const Navbar = () => {
       </FlexBetween>
 
       {isNonMobileScreens ? (
-        <FlexBetween gap="2rem">
-          <IconButton onClick={() => dispatch(setMode)}>
+        <FlexBetween gap="1.5rem">
+          <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <LightMode sx={{ fontSize: "25px" }} />
             ) : (
@@ -87,9 +87,9 @@ const Navbar = () => {
           <Message sx={{ fontSize: "25px" }} />
           <Notifications sx={{ fontSize: "25px" }} />
           <Help sx={{ fontSize: "25px" }} />
-          <FormControl variant="Standard" value={fullName}>
+          <FormControl variant="standard" value={"fullName"}>
             <Select
-              value={fullName}
+              value={"fullName"}
               sx={{
                 backgroundColor: neutralLight,
                 width: "150px",
@@ -105,8 +105,8 @@ const Navbar = () => {
               }}
               input={<InputBase />}
             >
-              <MenuItem value={fullName}>
-                <Typography>{fullName}</Typography>
+              <MenuItem value={"fullName"}>
+                <Typography>{"fullName"}</Typography>
               </MenuItem>
               <MenuItem value="Logout" onClick={() => dispatch(setLogout())}>
                 Log Out
@@ -139,6 +139,53 @@ const Navbar = () => {
             >
               <Close />
             </IconButton>
+            {/*Menu items*/}
+            <FlexBetween
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              gap="3rem"
+            >
+              <IconButton onClick={() => dispatch(setMode)}>
+                {theme.palette.mode === "dark" ? (
+                  <LightMode sx={{ fontSize: "25px" }} />
+                ) : (
+                  <DarkMode sx={{ fontSize: "25px" }} />
+                )}
+              </IconButton>
+              <Message sx={{ fontSize: "25px" }} />
+              <Notifications sx={{ fontSize: "25px" }} />
+              <Help sx={{ fontSize: "25px" }} />
+              <FormControl variant="Standard" value={"fullName"}>
+                <Select
+                  value={"fullName"}
+                  sx={{
+                    backgroundColor: neutralLight,
+                    width: "150px",
+                    borderRadius: ".25rem",
+                    p: ".25rem 1rem",
+                    "&.MuiSelect-select:focus": {
+                      backgroundColor: neutralLight,
+                    },
+                    "&.MuiSvgIcon-root": {
+                      pr: ".25rem",
+                      width: "3rem",
+                    },
+                  }}
+                  input={<InputBase />}
+                >
+                  <MenuItem value={"fullName"}>
+                    <Typography>{"fullName"}</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    value="Logout"
+                    onClick={() => dispatch(setLogout())}
+                  >
+                    Log Out
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </FlexBetween>
           </Box>
         </Box>
       )}
