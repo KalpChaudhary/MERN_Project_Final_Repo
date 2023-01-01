@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
-import { Box, Typography } from "@mui/material";
 
 const PostsWidget = (userId, isProfile = false) => {
   const dispatch = useDispatch();
@@ -42,9 +41,6 @@ const PostsWidget = (userId, isProfile = false) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // useEffect(() => {
-  //   getPosts();
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
       {posts.map(
