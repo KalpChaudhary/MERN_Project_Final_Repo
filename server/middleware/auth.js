@@ -4,8 +4,7 @@ export const verifyToken = (req, res, next) => {
     try {
         
         let token = req.header("Authorization");
-        console.log("token: ");
-        console.log("token: ", token);
+        
 
         if (!token){
             return res.status(403).json({message: "Access denied"});

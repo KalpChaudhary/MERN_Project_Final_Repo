@@ -20,19 +20,15 @@ const HomePage = () => {
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath}></UserWidget>
-
         </Box>
-        <Box flexBasis={isNonMobileScreens ? "42%" : undefined} mt={isNonMobileScreens? undefined : "2rem"}>
+        <Box
+          flexBasis={isNonMobileScreens ? "42%" : undefined}
+          mt={isNonMobileScreens ? undefined : "2rem"}
+        >
           <MyPostWidget picturePath={picturePath}></MyPostWidget>
-          <PostsWidget ></PostsWidget>
+          <PostsWidget userId={_id} />
         </Box>
-        {isNonMobileScreens && (
-          <Box flexBasis="26%">
-
-          </Box>
-        )}
-
-
+        {isNonMobileScreens && <Box flexBasis="26%"></Box>}
       </Box>
     </Box>
   );

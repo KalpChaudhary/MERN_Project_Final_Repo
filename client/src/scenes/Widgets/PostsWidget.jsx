@@ -1,14 +1,13 @@
-
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
+import { Box, Typography } from "@mui/material";
 
 const PostsWidget = (userId, isProfile = false) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
-  const { _id } = useSelector((state) => state.user);
 
   const getPosts = async () => {
     const response = await fetch(`http://localhost:3001/posts`, {
@@ -17,6 +16,7 @@ const PostsWidget = (userId, isProfile = false) => {
     });
 
     const data = await response.json();
+
     dispatch(setPosts({ posts: data }));
   };
 
@@ -31,16 +31,20 @@ const PostsWidget = (userId, isProfile = false) => {
 
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
+    //console.log(data);
   };
 
   useEffect(() => {
-    if (isProfile) {
+    if (!isProfile) {
       getUserPosts();
     } else {
       getPosts();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // useEffect(() => {
+  //   getPosts();
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
       {posts.map(
@@ -60,14 +64,14 @@ const PostsWidget = (userId, isProfile = false) => {
             key={_id}
             postId={_id}
             postUserId={userId}
-            name={firstName + " " + lastName}
+            name={`${firstName} ${lastName}`}
             description={description}
             location={location}
             comments={comments}
             picturePath={picturePath}
             userPicturePath={userPicturePath}
             likes={likes}
-          ></PostWidget>
+          />
         )
       )}
     </>
