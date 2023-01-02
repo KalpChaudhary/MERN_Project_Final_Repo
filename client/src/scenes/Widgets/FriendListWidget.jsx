@@ -5,31 +5,39 @@ import { Box, Typography, useTheme, IconButton } from "@mui/material";
 import { useEffect } from "react";
 import { setFriends } from "state";
 
-const FriendListWidget = () => {
+const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
-  const loggedInUserId = useSelector((state) => state.user._id);
+
   const friends = useSelector((state) => state.user.friends);
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
+  const getFriends = async () => {
+    const response = await fetch(
+      `http://localhost:3001/users/${userId}/friends`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    const data = await response.json();
+    dispatch(setFriends({ friends: data }));
+  };
+
+  useEffect(() => {
+    getFriends();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <WidgetWrapper>
-      <Typography variant="h5" fontWeight="500" color={palette.neutral.dark}>Friend List</Typography>
-      
-        {friends.map((friend) => (
-          <Box margin={"1rem 0"}>
-          <Friend
-            friendId={friend._id}
-            name={friend.firstName + " " + friend.lastName}
-            subTitle={friend.occupation}
-            userPicturePath={friend.picturePath}
-            margin="0.5rem 0"
-          />
-          </Box>
-        ))}
+      <Typography variant="h5" fontWeight="500" color={palette.neutral.dark} sx={{mb: "1.5rem"}}>
+        Friend List
+      </Typography>
+
       
     </WidgetWrapper>
   );
