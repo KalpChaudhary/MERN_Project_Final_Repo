@@ -5,12 +5,14 @@ import MyPostWidget from "scenes/Widgets/MyPostWidget";
 import UserWidget from "scenes/Widgets/UserWidget";
 import PostsWidget from "scenes/Widgets/PostsWidget";
 import FriendListWidget from "scenes/Widgets/FriendListWidget";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 const ProfilePage = () => {
+
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const [user, setUser] = useState(null);
   const { userId } = useParams();
+  const [user, setUser] = useState(null);
   const token = useSelector((state) => state.token);
 
   const getUser = async () => {
@@ -21,7 +23,7 @@ const ProfilePage = () => {
 
     const data = await response.json();
     setUser(data);
-  };
+  }
 
   useEffect(() => {
     getUser();
@@ -45,7 +47,7 @@ const ProfilePage = () => {
         <Box
           display="flex"
           flexDirection="column"
-          gap="1.5rem"
+          gap="1rem"
           flexBasis={isNonMobileScreens ? "26%" : undefined}
         >
           <UserWidget userId={userId} picturePath={picturePath}></UserWidget>
@@ -53,10 +55,10 @@ const ProfilePage = () => {
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
+          mt={isNonMobileScreens ? undefined : "1rem"}
         >
           <MyPostWidget picturePath={picturePath}></MyPostWidget>
-          <PostsWidget userId={userId}   />
+          <PostsWidget userId={userId} isProfile />
         </Box>
       </Box>
     </Box>

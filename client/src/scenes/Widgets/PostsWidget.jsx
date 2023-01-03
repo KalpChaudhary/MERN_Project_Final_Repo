@@ -3,11 +3,10 @@ import { useEffect } from "react";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
 
-const PostsWidget = (userId, isProfile = false) => {
+const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
-
 
   const getPosts = async () => {
     const response = await fetch(`http://localhost:3001/posts`, {
@@ -18,6 +17,7 @@ const PostsWidget = (userId, isProfile = false) => {
     const data = await response.json();
     //console.log(data);
     dispatch(setPosts({ posts: data }));
+    // console.log("Testing");
   };
 
   const getUserPosts = async () => {
@@ -31,18 +31,15 @@ const PostsWidget = (userId, isProfile = false) => {
 
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
+    // console.log(data);
   };
 
+
   useEffect(() => {
-    if (!isProfile) {
-      getUserPosts();
-    } else {
-      getPosts();
-    }
+    isProfile ? getUserPosts() : getPosts();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(posts);
-
+  // getPosts();
 
   return (
     <>
