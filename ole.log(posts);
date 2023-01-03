@@ -1,0 +1,132 @@
+[33mcommit 79b9765188d577e99c8784ea930fdd5a50106bb7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Mon Jan 2 19:34:54 2023 -0500
+
+    Working on profile page user page
+
+[33mcommit cc10064f67f6203d789555ba716eee48c5cd6a9a[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Mon Jan 2 18:10:57 2023 -0500
+
+    Temp commit
+
+[33mcommit db1e24a148beed9c34c00fff7e9f98d4399d35f2[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Mon Jan 2 14:27:18 2023 -0500
+
+    Friend list component added
+
+[33mcommit 38758e04966c3c5c264982d0b30b421ae0825ad1[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Sun Jan 1 13:34:10 2023 -0500
+
+    Post compponent is working fine
+
+[33mcommit 63f39c33c54c37578683435e1095e14ece5f3de6[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Sun Jan 1 13:01:02 2023 -0500
+
+    fixing like button functionality and add friend
+
+[33mcommit 28db254edb78eb9373b288bea06681040d8e3406[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 30 18:27:48 2022 -0500
+
+    Working on Posts component
+
+[33mcommit 5e16e98d74575d0cd217c96602ade3e8bdad809a[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 30 14:00:39 2022 -0500
+
+    Working on create post component
+
+[33mcommit 520e4489e58b28cd2aea45f2da2f1c8985ceb38a[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Thu Dec 29 14:42:02 2022 -0500
+
+    Completed user component in home page
+
+[33mcommit d2f2b3116fddc823d2628d774d8119b8f34d4258[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Wed Dec 28 17:02:27 2022 -0500
+
+    Random checking
+
+[33mcommit 9afdc27dba1433c0bd59c6f299c2feae43e4713a[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Wed Dec 28 15:26:58 2022 -0500
+
+    Register/Login working
+
+[33mcommit 84edc5640c0a614dbebc6ab5bc9accf15bd886b4[m[33m ([m[1;31mMERN_Project_2/main[m[33m)[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Tue Dec 27 17:47:01 2022 -0500
+
+    Added form file
+
+[33mcommit 472fc289fe6b53b5b453a2808fc5ef71957a91c9[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Mon Dec 26 21:47:36 2022 -0500
+
+    Navbar completed
+
+[33mcommit 676e23f540560dec63439d6d0f81c88c3bd397e8[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Sat Dec 24 22:39:24 2022 -0500
+
+    Navbar still incomplete
+
+[33mcommit accf1759c385cd28741a3f5257245d78219a0c38[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 23 23:19:00 2022 -0500
+
+    Done for the day
+
+[33mcommit d1ad6ca3841402014d62bdf00bb8198edfc95261[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 23 19:41:53 2022 -0500
+
+    Appp is working
+
+[33mcommit 142911f5165d46b9681f696ca7f51a5b334af20e[m
+Merge: 38e6330 83fa6a0
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 23 19:37:10 2022 -0500
+
+    Adding deleted files
+
+[33mcommit 38e633069a69738061ed4eaaf379cf3179d13d93[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 23 19:29:51 2022 -0500
+
+    React app is now working
+
+[33mcommit 68d7f3cd9af95a64166ef379f37134f4d25683bd[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 23 17:34:58 2022 -0500
+
+    Test deleted files
+
+[33mcommit 83fa6a059dbe788a558ea55678fabc0c47dc1212[m
+Author: Kalp Chaudhary <68579607+KalpChaudhary@users.noreply.github.com>
+Date:   Fri Dec 23 14:52:43 2022 -0500
+
+    Delete client directory
+
+[33mcommit 3ea00884ea12560b7efab101f17f9b308d6a74c1[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Fri Dec 23 13:20:48 2022 -0500
+
+    commit -m "commit check"
+
+[33mcommit b9657ba4ad4d1de76141d19d27f5b067d9cb29ab[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Thu Dec 22 20:26:25 2022 -0500
+
+    index.js \state last code
+
+[33mcommit 0fc4f46517adac03a9b649d942c51c2423a31ce4[m
+Author: KalpChaudhary <kalp.s.p.123@gmail.com>
+Date:   Thu Dec 22 15:04:44 2022 -0500
+
+    init
