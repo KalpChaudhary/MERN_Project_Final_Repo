@@ -3,8 +3,16 @@ import {
   FavoriteBorderOutlined,
   FavoriteOutlined,
   ShareOutlined,
+  Send,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+  InputBase,
+} from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -24,6 +32,7 @@ const PostWidget = ({
   likes,
 }) => {
   const [isComments, setIsComments] = useState(false);
+  const [comment, setComment] = useState("");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
@@ -48,8 +57,29 @@ const PostWidget = ({
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
   };
+
+  const handleComment = async () => {
+
+    //console.log(comment);
+
+    const response = await fetch(
+      `http://localhost:3001/posts/${postId}`,
+      {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` , "Content-Type": "application/json"},
+        body: JSON.stringify({comment: comment }),
+      }
+    );
+
+    const updatedPost = await response.json();
+    //console.log(updatedPost);
+    dispatch(setPost({ post: updatedPost}));
+    setComment("");
+
+  };
+
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper m="1.5rem 0">
       <Friend
         friendId={postUserId}
         name={name}
@@ -102,6 +132,25 @@ const PostWidget = ({
             </Box>
           ))}
           <Divider />
+          <FlexBetween mt="1rem" gap="2rem">
+            <InputBase
+              placeholder="Write a comment..."
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              sx={{
+                backgroundColor: palette.neutral.light,
+                borderRadius: "2rem",
+                width: "100%",
+                height: "3rem",
+                padding: "1rem 2rem",
+                fontWeight: "300",
+              }}
+            ></InputBase>
+
+            <IconButton onClick={handleComment}>
+              <Send sx={{ color: primary }} />
+            </IconButton>
+          </FlexBetween>
         </Box>
       )}
     </WidgetWrapper>

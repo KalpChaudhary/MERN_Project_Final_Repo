@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
+import FlexBetween from "components/FlexBetween";
+import { Box, Typography } from "@mui/material";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
@@ -34,7 +36,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     // console.log(data);
   };
 
-
   useEffect(() => {
     isProfile ? getUserPosts() : getPosts();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -43,6 +44,11 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   return (
     <>
+      <Box justifyContent="flex-end" display="flex" gap="1rem" mt="1.5rem">
+        <Typography sx={{borderBottom: "2px solid #fff"}}>All Posts</Typography>
+        <Typography>Following</Typography>
+        <Typography>Popular</Typography>
+      </Box>
       {posts.map(
         ({
           _id,

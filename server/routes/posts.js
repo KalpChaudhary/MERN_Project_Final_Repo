@@ -3,7 +3,8 @@ import express from 'express';
 import {
     getFeedPosts, 
     getUserPosts,
-    likePost
+    likePost,
+    addComment
 } from "../controllers/posts.js";
 
 import { verifyToken } from "../middleware/auth.js";
@@ -15,8 +16,9 @@ const router = express.Router();
 router.get('/', verifyToken,getFeedPosts);
 router.get('/:userId/posts', verifyToken,getUserPosts);
 
-//Update
+//Updatse
 
-router.patch('/:id/like', verifyToken, likePost);
+router.patch('/:id/like',verifyToken, likePost);
+router.patch('/:id',verifyToken, addComment);
 
 export default router;

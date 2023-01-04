@@ -12,8 +12,6 @@ const FriendListWidget = ({ userId }) => {
   const friends = useSelector((state) => state.user.friends);
 
   const { palette } = useTheme();
-  const main = palette.neutral.main;
-  const primary = palette.primary.main;
 
   const getFriends = async () => {
     const response = await fetch(

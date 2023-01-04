@@ -50,7 +50,7 @@ const Navbar = () => {
           fontSize="clamp(1rem, 2rem , 2.25rem)"
           fontWeight="bold"
           color="primary"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
           sx={{
             "&:hover": {
               color: primaryLight,

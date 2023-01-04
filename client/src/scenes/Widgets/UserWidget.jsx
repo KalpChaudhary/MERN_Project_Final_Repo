@@ -18,6 +18,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
+  const totalFriends = useSelector((state) => state.user.friends.length);
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.primary.main;
@@ -34,7 +35,7 @@ const UserWidget = ({ userId, picturePath }) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
 
@@ -45,7 +46,6 @@ const UserWidget = ({ userId, picturePath }) => {
     occupation,
     impressions,
     viewedProfile,
-    friends,
   } = user;
 
   return (
@@ -69,7 +69,7 @@ const UserWidget = ({ userId, picturePath }) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={medium}>{totalFriends} friends</Typography>
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />
