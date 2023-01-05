@@ -6,7 +6,7 @@ import {
   ImageOutlined,
   MicOutlined,
   MoreHorizOutlined,
-  Description,
+  
 } from "@mui/icons-material";
 
 import {

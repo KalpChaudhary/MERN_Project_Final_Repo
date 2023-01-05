@@ -6,20 +6,20 @@ import FlexBetween from "components/FlexBetween";
 
 import {
   Box,
-  Typography,
-  Button,
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
 import { useTheme } from "@emotion/react";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
-  const palette = useTheme();
+  const {palette} = useTheme();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const [active, setActive] = useState("suggested");
+
+  const primary = palette.primary.main;
 
   const getPosts = async () => {
     const response = await fetch(`http://localhost:3001/posts`, {
@@ -74,6 +74,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         <Box display="flex" justifyContent="flex-end" mt="1rem">
           <ToggleButtonGroup
             onChange={handleActivePostsFilter}
+            color={"primary"}
             value={active}
             exclusive
             aria-label="Platform"
