@@ -1,7 +1,7 @@
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Typography, useTheme, IconButton } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect } from "react";
 import { setFriends } from "state";
 

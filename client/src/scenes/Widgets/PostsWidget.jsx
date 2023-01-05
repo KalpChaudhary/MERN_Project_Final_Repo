@@ -1,14 +1,25 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
 import FlexBetween from "components/FlexBetween";
-import { Box, Typography } from "@mui/material";
+
+import {
+  Box,
+  Typography,
+  Button,
+  ToggleButtonGroup,
+  ToggleButton,
+} from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
+  const palette = useTheme();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const [active, setActive] = useState("suggested");
 
   const getPosts = async () => {
     const response = await fetch(`http://localhost:3001/posts`, {
@@ -42,13 +53,39 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   // getPosts();
 
+  const handleActivePostsFilter = (event, newActive) => {
+    setActive(newActive);
+
+    if (newActive === "following") {
+      const followingPosts = posts.filter((post) =>
+        user.friends.map((friend) => friend._id).includes(post.userId)
+      );
+      dispatch(setPosts({ posts: followingPosts }));
+    }
+    if (newActive === "suggested") {
+      getPosts();
+      //dispatch(setPosts({ posts: posts }));
+    }
+  };
+
   return (
     <>
-      <Box justifyContent="flex-end" display="flex" gap="1rem" mt="1.5rem">
-        <Typography sx={{borderBottom: "2px solid #fff"}}>All Posts</Typography>
-        <Typography>Following</Typography>
-        <Typography>Popular</Typography>
-      </Box>
+      {!isProfile && (
+        <Box display="flex" justifyContent="flex-end" mt="1rem">
+          <ToggleButtonGroup
+            onChange={handleActivePostsFilter}
+            value={active}
+            exclusive
+            aria-label="Platform"
+            sx={{ "&>*": { border: "none" } }}
+          >
+            <ToggleButton value="following">Following</ToggleButton>
+            <ToggleButton value="popular">Popular</ToggleButton>
+            <ToggleButton value="suggested">Suggested</ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
+      )}
+
       {posts.map(
         ({
           _id,

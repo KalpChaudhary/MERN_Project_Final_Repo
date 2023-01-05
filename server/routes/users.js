@@ -15,6 +15,7 @@ router.get("/:id",verifyToken, getUser);
 router.get("/:id/friends", verifyToken, getUserFriends);
 
 
+
 // Create
 router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
 
