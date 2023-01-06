@@ -1,7 +1,12 @@
-import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
+import {
+  PersonAddOutlined,
+  PersonRemoveOutlined,
+  ChatBubbleOutline,
+} from "@mui/icons-material";
+import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
 import { Box, Typography, IconButton, useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { setFriends  } from "state";
+import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +26,6 @@ const Friend = ({ friendId, name, subTitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId);
   // console.log(friends);
- 
 
   const patchFriend = async () => {
     const response = await fetch(
@@ -65,16 +69,27 @@ const Friend = ({ friendId, name, subTitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
-        onClick={() => patchFriend()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isFriend ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} />
-        ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton>
+      <FlexBetween gap="0.5rem">
+        <IconButton
+          onClick={() => patchFriend()}
+          sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
+        >
+          {isFriend ? (
+            <PersonRemoveOutlined sx={{ color: primaryDark }} />
+          ) : (
+            <PersonAddOutlined sx={{ color: primaryDark }} />
+          )}
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            navigate(`/chat/${friendId}`);
+            navigate(0);
+          }}
+          sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
+        >
+          <ChatBubbleOutline sx={{ color: primaryDark }} />
+        </IconButton>
+      </FlexBetween>
     </FlexBetween>
   );
 };
