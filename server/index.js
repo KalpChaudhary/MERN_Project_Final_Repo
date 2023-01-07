@@ -12,13 +12,19 @@ import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import conversationRoutes from "./routes/conversation.js";
+import messagesRoutes from "./routes/messages.js";
 import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./controllers/posts.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
-import {users, posts} from "./data/index.js";
+import { users, posts } from "./data/index.js";
+import { Server } from "socket.io";
+
 
 //import jwt from "jsonwebtoken";
+
+// Socket.io work
 
 // Configurations
 
@@ -55,6 +61,10 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
+app.use("/conversations", conversationRoutes);
+app.use("/messages", messagesRoutes);
+
+
 // MongoDB connection
 
 const PORT = process.env.PORT || 6001;
@@ -64,10 +74,17 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() =>{
+  .then(() => {
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
     // User.insertMany(users);
     // Post.insertMany(posts);
-  }
-  ).catch((error) => console.log(error.message));
+  })
+  .catch((error) => console.log(error.message));
+
+
+// const io = new Server(3001);
+
+// io.on("connection", (socket) => {
+//   console.log(socket.id);
+// });
