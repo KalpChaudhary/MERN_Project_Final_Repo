@@ -8,13 +8,17 @@ import {
   InputBase,
   IconButton,
 } from "@mui/material";
-import { useEffect } from "react";
-import { setFriends } from "state";
+import { useState, useEffect } from "react";
+
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
 import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
+import MessageWidget from "./MessageWidget";
 
-const ChatWidget = ({ friendId }) => {
+const ChatWidget = ({ friendId, userId }) => {
+  const [conversationId, setConversationId] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
@@ -22,7 +26,66 @@ const ChatWidget = ({ friendId }) => {
     (state) => state.user.friends.filter((friend) => friend._id === friendId)[0]
   );
 
-  //   console.log(friend.firstName);
+  const getConversation = async () => {
+    const response = await fetch(
+      `http://localhost:3001/conversations/${userId}`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await response.json();
+    const conversation = data.filter((conversation) =>
+      conversation.members.includes(friendId)
+    );
+
+    if (conversation.length === 0) return;
+    setConversationId(conversation[0]._id);
+  };
+
+  const getMessages = async () => {
+    if (conversationId === "") return;
+
+    const response = await fetch(
+      `http://localhost:3001/messages/${conversationId}`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await response.json();
+    setMessages(data);
+    // console.log(data);
+  };
+
+  const handleSendMessage = async () => {
+    if (newMessage === "") return;
+    const messageData = {
+      conversationId: conversationId,
+      sender: userId,
+      text: newMessage,
+    }
+
+    const response = await fetch(`http://localhost:3001/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageData),
+    })
+
+    const data = await response.json();
+    setMessages([...messages, data]);
+    setNewMessage("");
+  }
+
+  useEffect(() => {
+    getConversation();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    getMessages();
+  }, [conversationId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <WidgetWrapper>
@@ -38,7 +101,16 @@ const ChatWidget = ({ friendId }) => {
         </FlexBetween>
         <FiberManualRecordRoundedIcon sx={{ color: palette.success.main }} />
       </FlexBetween>
-      <Box p="3rem 0"></Box>
+      <Box p="2rem 0">
+        {messages.map((msg) => (
+          <MessageWidget
+            key={msg._id}
+            msg={msg.text}
+            alignment={msg.sender === userId ? "right" : "left"}
+            time={msg.createdAt}
+          />
+        ))}
+      </Box>
       <FlexBetween>
         <InputBase
           sx={{
@@ -50,14 +122,18 @@ const ChatWidget = ({ friendId }) => {
             fontWeight: "300",
           }}
           placeholder="Starts chatting ..."
+          onChange={(e) => setNewMessage(e.target.value)}
+          value={newMessage}
+          
         />
         <IconButton
-            sx={{
-                backgroundColor: palette.primary.light,
-                borderRadius: "50%",
-                color: palette.neutral.dark,
-                padding: "0.8rem",
-            }}
+          sx={{
+            backgroundColor: palette.primary.light,
+            borderRadius: "50%",
+            color: palette.neutral.dark,
+            padding: "0.8rem",
+          }}
+          onClick={handleSendMessage}
         >
           <Send />
         </IconButton>
