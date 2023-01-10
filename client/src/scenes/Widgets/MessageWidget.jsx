@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { format } from "timeago.js";
+
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setFriends } from "state";

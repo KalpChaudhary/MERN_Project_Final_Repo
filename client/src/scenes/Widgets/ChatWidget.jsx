@@ -19,7 +19,6 @@ const ChatWidget = ({ friendId, userId }) => {
   const [conversationId, setConversationId] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const friend = useSelector(

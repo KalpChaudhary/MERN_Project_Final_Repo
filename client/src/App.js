@@ -9,7 +9,7 @@ import LoginPage from "./scenes/LoginPage";
 import ProfilePage from "./scenes/ProfilePage";
 import ChatPage from "./scenes/ChatPage";
 import Navbar from "scenes/Navbar";
-//import Navbar from "./scenes/Navbar/Navbar";
+
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -24,12 +24,21 @@ function App() {
             {/* <Route path="/" element={<Navbar />} /> */}
             <Route path="/" element={<LoginPage />} />
             <Route path="/navbar" element={<Navbar />} />
+            {/* <Route path="/home" element={<HomePage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route path="/chat/:friendId" element={<ChatPage />} /> */}
             <Route
               path="/home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
             />
-            <Route path="/profile/:userId" element={isAuth ? <ProfilePage /> : <Navigate to="/" />} />
-            <Route path="/chat/:friendId" element={isAuth ? <ChatPage /> : <Navigate to="/" />} />
+            <Route
+              path="/profile/:userId"
+              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/chat/:friendId"
+              element={isAuth ? <ChatPage /> : <Navigate to="/" />}
+            />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

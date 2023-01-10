@@ -60,8 +60,6 @@ const Form = () => {
   const register = async (values, onSubmitProps) => {
     const formData = new FormData();
 
-    console.log(values["firstName"]);
-
     for (const value in values) {
       formData.append(value, values[value]);
     }
