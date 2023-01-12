@@ -63,7 +63,7 @@ const ChatWidget = ({ friendId, userId }) => {
       conversationId: conversationId,
       sender: userId,
       text: newMessage,
-    }
+    };
 
     const response = await fetch(`http://localhost:3001/messages`, {
       method: "POST",
@@ -71,12 +71,12 @@ const ChatWidget = ({ friendId, userId }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(messageData),
-    })
+    });
 
     const data = await response.json();
     setMessages([...messages, data]);
     setNewMessage("");
-  }
+  };
 
   useEffect(() => {
     getConversation();
@@ -110,7 +110,7 @@ const ChatWidget = ({ friendId, userId }) => {
           />
         ))}
       </Box>
-      <FlexBetween>
+      <FlexBetween gap={"1rem"}>
         <InputBase
           sx={{
             backgroundColor: palette.neutral.light,
@@ -123,7 +123,6 @@ const ChatWidget = ({ friendId, userId }) => {
           placeholder="Starts chatting ..."
           onChange={(e) => setNewMessage(e.target.value)}
           value={newMessage}
-          
         />
         <IconButton
           sx={{

@@ -59,23 +59,23 @@ const PostWidget = ({
   };
 
   const handleComment = async () => {
-
     //console.log(comment);
 
-    const response = await fetch(
-      `http://localhost:3001/posts/${postId}`,
-      {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` , "Content-Type": "application/json"},
-        body: JSON.stringify({comment: comment }),
-      }
-    );
+    if (comment === "") return;
+
+    const response = await fetch(`http://localhost:3001/posts/${postId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ comment: comment }),
+    });
 
     const updatedPost = await response.json();
     //console.log(updatedPost);
-    dispatch(setPost({ post: updatedPost}));
+    dispatch(setPost({ post: updatedPost }));
     setComment("");
-
   };
 
   return (
