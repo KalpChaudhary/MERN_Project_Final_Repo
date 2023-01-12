@@ -14,11 +14,13 @@ import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
 import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
 import MessageWidget from "./MessageWidget";
+import { io } from "socket.io-client";
 
 const ChatWidget = ({ friendId, userId }) => {
   const [conversationId, setConversationId] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [socket, setSocket] = useState(null);
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const friend = useSelector(
@@ -85,6 +87,12 @@ const ChatWidget = ({ friendId, userId }) => {
   useEffect(() => {
     getMessages();
   }, [conversationId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+  useEffect(() => {
+    const socket = io("ws://localhost:3002");
+    setSocket(socket);
+  }, []);
 
   return (
     <WidgetWrapper>
