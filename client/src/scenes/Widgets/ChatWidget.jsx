@@ -8,7 +8,7 @@ import {
   InputBase,
   IconButton,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
@@ -20,12 +20,15 @@ const ChatWidget = ({ friendId, userId }) => {
   const [conversationId, setConversationId] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
+  const socket = useRef();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const friend = useSelector(
     (state) => state.user.friends.filter((friend) => friend._id === friendId)[0]
   );
+
+  const user = useSelector((state) => state.user);
 
   const getConversation = async () => {
     const response = await fetch(
@@ -81,18 +84,23 @@ const ChatWidget = ({ friendId, userId }) => {
   };
 
   useEffect(() => {
+    socket.current = io("ws://localhost:3002");
+  }, []);
+
+  useEffect(() => {
+    socket.current.emit("addUser", user._id);
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [user]);
+
+  useEffect(() => {
     getConversation();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getMessages();
   }, [conversationId]); // eslint-disable-line react-hooks/exhaustive-deps
-
-
-  useEffect(() => {
-    const socket = io("ws://localhost:3002");
-    setSocket(socket);
-  }, []);
 
   return (
     <WidgetWrapper>
