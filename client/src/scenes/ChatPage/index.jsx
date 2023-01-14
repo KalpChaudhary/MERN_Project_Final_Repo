@@ -17,11 +17,10 @@ const ChatPage = () => {
       <Box
         width="100%"
         padding="2rem 6%"
-        gap="0.5rem"
         display="flex"
         justifyContent="center"
       >
-        <Box flexBasis={isNonMobileScreens ? "50%" : "80%"}>
+        <Box flexBasis={isNonMobileScreens ? "50%" : "90%"}>
             <ChatWidget friendId={friendId} userId = {user._id} />
         </Box>
       </Box>

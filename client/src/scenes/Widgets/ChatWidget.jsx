@@ -1,5 +1,5 @@
 import WidgetWrapper from "components/WidgetWrapper";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Send } from "@mui/icons-material";
 import {
   Box,
@@ -20,6 +20,7 @@ const ChatWidget = ({ friendId, userId }) => {
   const [conversationId, setConversationId] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
   // const [socket, setSocket] = useState(null);
   const socket = useRef();
   const { palette } = useTheme();
@@ -70,6 +71,12 @@ const ChatWidget = ({ friendId, userId }) => {
       text: newMessage,
     };
 
+    socket.current.emit("sendMessage", {
+      senderId: userId,
+      receiverId: friendId,
+      text: newMessage,
+    });
+
     const response = await fetch(`http://localhost:3001/messages`, {
       method: "POST",
       headers: {
@@ -85,12 +92,22 @@ const ChatWidget = ({ friendId, userId }) => {
 
   useEffect(() => {
     socket.current = io("ws://localhost:3002");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
   }, []);
+
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
 
   useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
-      console.log(users);
     });
   }, [user]);
 
