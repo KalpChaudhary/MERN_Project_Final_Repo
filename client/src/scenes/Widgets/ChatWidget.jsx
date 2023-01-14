@@ -21,6 +21,7 @@ const ChatWidget = ({ friendId, userId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [active, setActive] = useState(false);
   // const [socket, setSocket] = useState(null);
   const socket = useRef();
   const { palette } = useTheme();
@@ -108,8 +109,9 @@ const ChatWidget = ({ friendId, userId }) => {
   useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
+      users.map((user) => user.userId === friendId && setActive(true));
     });
-  }, [user]);
+  }, [user, friendId]);
 
   useEffect(() => {
     getConversation();
@@ -131,7 +133,11 @@ const ChatWidget = ({ friendId, userId }) => {
             </Typography>
           </Box>
         </FlexBetween>
-        <FiberManualRecordRoundedIcon sx={{ color: palette.success.main }} />
+        {active ? (
+          <FiberManualRecordRoundedIcon sx={{ color: palette.success.main }} />
+        ) : (
+          <FiberManualRecordRoundedIcon sx={{ color: "red" }} />
+        )}
       </FlexBetween>
       <Box p="2rem 0">
         {messages.map((msg) => (
