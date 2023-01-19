@@ -25,7 +25,7 @@ export const createStory = async (req, res) => {
 
 export const getFriendsStories = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.params;
     const user = await User.findById(userId);
     const friends = user.friends;
     const story = await Story.find({ userId: { $in: friends } });

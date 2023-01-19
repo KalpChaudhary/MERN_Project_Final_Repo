@@ -12,7 +12,7 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 // Get all stories of friends
-router.get("/friends", getFriendsStories);
+router.get("/:userId/friends", getFriendsStories);
 
 // Get a story of a user
 router.get("/:userId", getUserStory);
