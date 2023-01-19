@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const UserWidget = ({ userId, picturePath }) => {
+const UserWidget = ({ userId, picturePath  }) => {
   const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
@@ -60,9 +60,11 @@ const UserWidget = ({ userId, picturePath }) => {
           <UserImage image={picturePath}></UserImage>
           <Box>
             <Typography
+
               variant="h4"
               color={dark}
               fontWeight="500"
+
               sx={{
                 "&:hover": { cursor: "pointer", color: palette.primary.light },
               }}

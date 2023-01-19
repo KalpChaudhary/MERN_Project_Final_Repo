@@ -37,6 +37,9 @@ const ChatWidget = ({ friendId, userId }) => {
       `http://localhost:3001/conversations/${userId}`,
       {
         method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
@@ -56,6 +59,9 @@ const ChatWidget = ({ friendId, userId }) => {
       `http://localhost:3001/messages/${conversationId}`,
       {
         method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
@@ -82,6 +88,7 @@ const ChatWidget = ({ friendId, userId }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(messageData),
     });
@@ -111,7 +118,7 @@ const ChatWidget = ({ friendId, userId }) => {
     socket.current.on("getUsers", (users) => {
       users.map((user) => user.userId === friendId && setActive(true));
     });
-  }, [user, friendId]);
+  }, [user, friendId, active]);
 
   useEffect(() => {
     getConversation();
@@ -136,7 +143,7 @@ const ChatWidget = ({ friendId, userId }) => {
         {active ? (
           <FiberManualRecordRoundedIcon sx={{ color: palette.success.main }} />
         ) : (
-          <FiberManualRecordRoundedIcon sx={{ color: "red" }} />
+          <FiberManualRecordRoundedIcon sx={{ color: palette.error.main }} />
         )}
       </FlexBetween>
       <Box p="2rem 0">
