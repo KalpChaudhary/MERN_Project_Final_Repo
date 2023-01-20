@@ -19,7 +19,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
   const [active, setActive] = useState("suggested");
 
-  const primary = palette.primary.main;
 
   const getPosts = async () => {
     const response = await fetch(`http://localhost:3001/posts`, {
