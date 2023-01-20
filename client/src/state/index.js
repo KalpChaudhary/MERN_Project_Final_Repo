@@ -37,7 +37,9 @@ export const authSlice = createSlice({
 
       state.posts = updatedPosts;
     },
-    
+    // setModal: (state, action) => {
+    //   state.modal = action.payload.modal;
+    // },
   },
 });
 

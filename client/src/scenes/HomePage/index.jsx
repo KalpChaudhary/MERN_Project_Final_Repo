@@ -5,6 +5,8 @@ import MyPostWidget from "scenes/Widgets/MyPostWidget";
 import UserWidget from "scenes/Widgets/UserWidget";
 import PostsWidget from "scenes/Widgets/PostsWidget";
 import FriendListWidget from "scenes/Widgets/FriendListWidget";
+import StoryWidget from "scenes/Widgets/StoryWidget";
+
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -27,11 +29,17 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
+          <StoryWidget userId={_id} picturePath={picturePath}></StoryWidget>
           <MyPostWidget picturePath={picturePath}></MyPostWidget>
           <PostsWidget userId={_id} />
         </Box>
         {isNonMobileScreens && (
-          <Box flexBasis="26%" diaplay="flex" flexDirection="column" gap="1.5rem" >
+          <Box
+            flexBasis="26%"
+            diaplay="flex"
+            flexDirection="column"
+            gap="1.5rem"
+          >
             <FriendListWidget userId={_id} />
           </Box>
         )}

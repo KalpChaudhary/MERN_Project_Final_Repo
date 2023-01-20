@@ -79,7 +79,7 @@ const PostWidget = ({
   };
 
   return (
-    <WidgetWrapper m="1.5rem 0">
+    <WidgetWrapper m="1rem 0">
       <Friend
         friendId={postUserId}
         name={name}
