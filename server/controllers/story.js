@@ -1,16 +1,15 @@
 import Story from "../models/Story.js";
-import User from "../models/User.js";
+
 
 export const createStory = async (req, res) => {
   try {
-    const { userId, storyImageUrl } = req.body;
-    const user = await User.findById(userId);
-
+    const { userId, storyImageUrl, firstName, userPicturePath } = req.body;
+    
     const newStory = new Story({
       userId,
-      firstName: user.firstName,
+      firstName,
       storyImageUrl,
-      userPicturePath: user.picturePath,
+      userPicturePath,
     });
 
     await newStory.save();
