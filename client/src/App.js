@@ -9,6 +9,7 @@ import LoginPage from "./scenes/LoginPage";
 import ProfilePage from "./scenes/ProfilePage";
 import ChatPage from "./scenes/ChatPage";
 import Navbar from "scenes/Navbar";
+import StoryPage from "scenes/StoryPage";
 
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
             <Route
               path="/chat/:friendId"
               element={isAuth ? <ChatPage /> : <Navigate to="/" />}
+            />
+            <Route 
+            path="/story/:userId"
+            element={isAuth ? <StoryPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

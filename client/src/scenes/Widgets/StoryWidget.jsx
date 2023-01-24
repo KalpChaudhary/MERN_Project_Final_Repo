@@ -14,9 +14,11 @@ import UserImage from "components/UserImage";
 import { AddCircle } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const StoryWidget = ({ userId, picturePath }) => {
   const { palette } = useTheme();
+  const navigate = useNavigate();
 
   const [userStory, setUserStory] = useState([]);
 
@@ -29,12 +31,12 @@ const StoryWidget = ({ userId, picturePath }) => {
     });
     const story = await response.json();
     setUserStory(story);
-    console.log(story);
   };
 
-  //  shoow story modal
+  //  NAvigate to story page
   const handleShowStory = () => {
-    console.log("show story");
+    navigate(`/story/${userId}`);
+    navigate(0);
   };
 
   useEffect(() => {
@@ -59,10 +61,11 @@ const StoryWidget = ({ userId, picturePath }) => {
           width: "60px",
           height: "60px",
           position: "relative",
-          outline: `3px solid ${palette.primary.main}`,
+          outline: `${userStory.length === 0 ? "none" : `3px solid ${palette.primary.main}`}`,
           // overflow: "hidden",
         }}
         onClick={handleShowStory}
+
       >
         <UserImage image={picturePath} />
         {userStory.length === 0 ? (
