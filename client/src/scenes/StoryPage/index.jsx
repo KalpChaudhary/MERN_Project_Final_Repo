@@ -3,7 +3,6 @@ import Navbar from "scenes/Navbar";
 import { useParams } from "react-router-dom";
 import StoryPageWidget from "scenes/Widgets/StoryPageWidget";
 const StoryPage = () => {
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const {userId} = useParams("userId");
   console.log(userId);
 
