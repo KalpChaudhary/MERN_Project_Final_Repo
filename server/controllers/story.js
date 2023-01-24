@@ -1,4 +1,5 @@
 import Story from "../models/Story.js";
+import User from "../models/User.js";
 
 
 export const createStory = async (req, res) => {
