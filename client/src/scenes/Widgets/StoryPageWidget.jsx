@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import StoryImage from "components/StoryImage";
 
 const StoryPageWidget = ({ userId }) => {

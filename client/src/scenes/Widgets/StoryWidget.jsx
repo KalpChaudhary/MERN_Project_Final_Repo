@@ -3,17 +3,11 @@ import WidgetWrapper from "components/WidgetWrapper";
 import {
   Box,
   useTheme,
-  Backdrop,
-  Modal,
-  Fade,
-  Button,
-  Typography,
 } from "@mui/material";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import UserImage from "components/UserImage";
 import { AddCircle } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const StoryWidget = ({ userId, picturePath }) => {
@@ -43,8 +37,6 @@ const StoryWidget = ({ userId, picturePath }) => {
     getUserStory();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // stories
-  const stories = useSelector((state) => state.stories);
 
   //Modal
   const [open, setOpen] = useState(false);

@@ -1,10 +1,9 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import Navbar from "scenes/Navbar";
 import { useParams } from "react-router-dom";
 import StoryPageWidget from "scenes/Widgets/StoryPageWidget";
 const StoryPage = () => {
   const {userId} = useParams("userId");
-  console.log(userId);
 
   return (
     <Box>
