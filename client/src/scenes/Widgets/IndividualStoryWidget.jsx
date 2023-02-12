@@ -16,7 +16,6 @@ export function IndividualStoryWidget({
 }) {
 
   const { palette } = useTheme();
-  console.log(isUserStory)
 
   return <Box sx={{
     display: "block",

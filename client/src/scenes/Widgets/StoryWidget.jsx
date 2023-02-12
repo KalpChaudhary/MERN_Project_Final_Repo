@@ -32,7 +32,6 @@ const StoryWidget = ({ userId, picturePath }) => {
       }
     );
     const story = await response.json();
-    console.log(story);
     setFriendsStory(story);
   };
 
@@ -69,6 +68,8 @@ const StoryWidget = ({ userId, picturePath }) => {
         {friendsStory.length > 0
           ? friendsStory.map((friend) => (
               <IndividualStoryWidget
+
+                key={friend.userId}
                 handleShowStory={() => {
                   handleShowStory(friend.userId);
                 }}
