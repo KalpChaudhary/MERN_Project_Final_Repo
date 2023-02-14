@@ -65,6 +65,10 @@ app.use("/story", storyRoutes);
 app.use("/conversations", verifyToken,conversationRoutes);
 app.use("/messages", verifyToken,messagesRoutes);
 
+//favicon
+
+app.use("/favicon.ico", express.static("public/assets/favicon.ico"));
+
 
 
 // MongoDB connection
