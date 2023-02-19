@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Box, useTheme } from "@mui/material";
 import StoryImage from "components/StoryImage";
+import { API_URL } from "config";
 
 const StoryPageWidget = ({ userId }) => {
   const [story, setStory] = useState(null);
   const {palette} = useTheme();
 
   const getStory = async () => {
-    const response = await fetch(`http://localhost:3001/story/${userId}`, {
+    const response = await fetch(`${API_URL}/story/${userId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

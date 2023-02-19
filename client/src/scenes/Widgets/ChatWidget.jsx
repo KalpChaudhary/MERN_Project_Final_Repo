@@ -15,6 +15,7 @@ import UserImage from "components/UserImage";
 import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
 import MessageWidget from "./MessageWidget";
 import { io } from "socket.io-client";
+import { API_URL, CHAT_SERVER_URL } from "config";
 
 const ChatWidget = ({ friendId, userId }) => {
   const [conversationId, setConversationId] = useState("");
@@ -34,7 +35,7 @@ const ChatWidget = ({ friendId, userId }) => {
 
   const getConversation = async () => {
     const response = await fetch(
-      `http://localhost:3001/conversations/${userId}`,
+      `${API_URL}/conversations/${userId}`,
       {
         method: "GET",
         headers: {
@@ -56,7 +57,7 @@ const ChatWidget = ({ friendId, userId }) => {
     if (conversationId === "") return;
 
     const response = await fetch(
-      `http://localhost:3001/messages/${conversationId}`,
+      `${API_URL}/messages/${conversationId}`,
       {
         method: "GET",
         headers: {
@@ -84,7 +85,7 @@ const ChatWidget = ({ friendId, userId }) => {
       text: newMessage,
     });
 
-    const response = await fetch(`http://localhost:3001/messages`, {
+    const response = await fetch(`${API_URL}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +100,7 @@ const ChatWidget = ({ friendId, userId }) => {
   };
 
   useEffect(() => {
-    socket.current = io("ws://localhost:3002");
+    socket.current = io(`ws://${CHAT_SERVER_URL}`);
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,

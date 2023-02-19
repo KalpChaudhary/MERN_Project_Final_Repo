@@ -27,15 +27,19 @@ const Friend = ({ friendId, name, subTitle, userPicturePath }) => {
   const isFriend = friends.find((friend) => friend._id === friendId);
   // console.log(friends);
 
+
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
+      `${process.env.API_URL}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
         "Content-Type": "application/json",
       }
     );
+
+
+   
 
     const data = await response.json();
     dispatch(setFriends({ friends: data }));

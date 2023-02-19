@@ -7,6 +7,7 @@ import PostsWidget from "scenes/Widgets/PostsWidget";
 import FriendListWidget from "scenes/Widgets/FriendListWidget";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_URL } from "config";
 
 const ProfilePage = () => {
 
@@ -16,7 +17,7 @@ const ProfilePage = () => {
   const token = useSelector((state) => state.token);
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${API_URL}/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

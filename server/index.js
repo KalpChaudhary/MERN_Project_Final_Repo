@@ -18,11 +18,14 @@ import messagesRoutes from "./routes/messages.js";
 import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { createStory } from "./controllers/story.js";
+import favicon from "serve-favicon";
+
 
 //import jwt from "jsonwebtoken";
 
-
 // Configurations
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,14 +65,11 @@ app.use("/posts", postRoutes);
 app.use("/story", storyRoutes);
 
 // Conversations
-app.use("/conversations", verifyToken,conversationRoutes);
-app.use("/messages", verifyToken,messagesRoutes);
+app.use("/conversations", verifyToken, conversationRoutes);
+app.use("/messages", verifyToken, messagesRoutes);
 
 //favicon
-
-app.use("/favicon.ico", express.static("public/assets/favicon.ico"));
-
-
+app.use(favicon(path.join(__dirname, "public/assets", "favicon.ico")));
 
 // MongoDB connection
 
@@ -84,3 +84,6 @@ mongoose
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
   })
   .catch((error) => console.log(error.message));
+
+
+// app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));

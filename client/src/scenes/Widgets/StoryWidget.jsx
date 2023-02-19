@@ -3,6 +3,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "config";
 
 const StoryWidget = ({ userId, picturePath }) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const StoryWidget = ({ userId, picturePath }) => {
   const [friendsStory, setFriendsStory] = useState([]);
 
   const getUserStory = async () => {
-    const response = await fetch(`http://localhost:3001/story/${userId}`, {
+    const response = await fetch(`${API_URL}/story/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +24,7 @@ const StoryWidget = ({ userId, picturePath }) => {
 
   const getFriendsStory = async () => {
     const response = await fetch(
-      `http://localhost:3001/story/${userId}/friends`,
+      `${API_URL}/story/${userId}/friends`,
       {
         method: "GET",
         headers: {

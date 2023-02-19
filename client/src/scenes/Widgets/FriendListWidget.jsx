@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect } from "react";
 import { setFriends } from "state";
+import { API_URL } from "config";
 
 const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const FriendListWidget = ({ userId }) => {
 
   const getFriends = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
+      `${API_URL}/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

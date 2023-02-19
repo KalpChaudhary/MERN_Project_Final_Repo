@@ -10,6 +10,7 @@ import {
   ToggleButton,
 } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { API_URL } from "config";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
   const {palette} = useTheme();
@@ -21,7 +22,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
 
   const getPosts = async () => {
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`${API_URL}/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -34,7 +35,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `${API_URL}/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

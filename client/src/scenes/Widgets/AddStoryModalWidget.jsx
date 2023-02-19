@@ -15,6 +15,7 @@ import { useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@mui/icons-material";
 import { setStories } from "state";
 import { useDispatch, useSelector } from "react-redux";
+import { API_URL } from "config";
 
 export function AddStoryModalWidget({ open, handleClose }) {
   const [image, setImage] = useState(null);
@@ -40,7 +41,7 @@ export function AddStoryModalWidget({ open, handleClose }) {
       formData.append("storyImageUrl", image.name);
     }
 
-    const response = await fetch(`http://localhost:3001/story`, {
+    const response = await fetch(`${API_URL}/story`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
