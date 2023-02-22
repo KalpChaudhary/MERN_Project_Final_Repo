@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
+import { API_URL } from "config";
 
 const StoryImage = ({ image }) => {
   return (
     <Box>
       <img
-        src={`${process.env.API_URL}/assets/${image}`}
+        src={`${API_URL}/assets/${image}`}
         alt="User"
         style={{ objectFit: "cover" , width: "100%", height: "100%"}}
       />
