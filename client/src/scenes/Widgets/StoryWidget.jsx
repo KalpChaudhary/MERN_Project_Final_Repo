@@ -1,7 +1,7 @@
 import { IndividualStoryWidget } from "./IndividualStoryWidget";
 import WidgetWrapper from "components/WidgetWrapper";
 import { Box } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "config";
 
@@ -11,41 +11,35 @@ const StoryWidget = ({ userId, picturePath }) => {
   const [userStory, setUserStory] = useState([]);
   const [friendsStory, setFriendsStory] = useState([]);
 
-  const getUserStory = async () => {
-    const response = await fetch(`${API_URL}/story/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const story = await response.json();
-    setUserStory(story);
-  };
-
-  const getFriendsStory = async () => {
-    const response = await fetch(
-      `${API_URL}/story/${userId}/friends`,
-      {
+  const getStories = useCallback(async () => {
+    const [userStoryResponse, friendsStoryResponse] = await Promise.all([
+      fetch(`${API_URL}/story/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-      }
-    );
-    const story = await response.json();
-    setFriendsStory(story);
-  };
+      }),
+      fetch(`${API_URL}/story/${userId}/friends`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    ]);
+    const userStory = await userStoryResponse.json();
+    const friendsStory = await friendsStoryResponse.json();
+    setUserStory(userStory);
+    setFriendsStory(friendsStory);
+  }, [userId]);
 
   //  NAvigate to story page
   const handleShowStory = (id) => {
     navigate(`/story/${id}`);
-    navigate(0);
   };
 
   useEffect(() => {
-    getUserStory();
-    getFriendsStory();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    getStories();
+  }, [getStories]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //Modal
   const [open, setOpen] = useState(false);
@@ -54,7 +48,7 @@ const StoryWidget = ({ userId, picturePath }) => {
 
   return (
     <WidgetWrapper mb={"1.5rem"}>
-      <Box sx={{display:"flex", gap:"1rem"}}>
+      <Box sx={{ display: "flex", gap: "1rem" }}>
         <IndividualStoryWidget
           handleShowStory={() => {
             handleShowStory(userId);
@@ -69,7 +63,6 @@ const StoryWidget = ({ userId, picturePath }) => {
         {friendsStory.length > 0
           ? friendsStory.map((friend) => (
               <IndividualStoryWidget
-
                 key={friend.userId}
                 handleShowStory={() => {
                   handleShowStory(friend.userId);

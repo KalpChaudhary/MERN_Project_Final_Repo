@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import ChatWidget from "scenes/Widgets/ChatWidget";
 import Navbar from "scenes/Navbar";
 import { useParams } from "react-router-dom";
@@ -16,11 +16,11 @@ const ChatPage = () => {
       <Navbar />
       <Box
         width="100%"
-        padding="2rem 6%"
+        padding= {isNonMobileScreens ? "2rem 6%" : "0"}
         display="flex"
         justifyContent="center"
       >
-        <Box flexBasis={isNonMobileScreens ? "50%" : "90%"}>
+        <Box flexBasis={isNonMobileScreens ? "50%" : "100%"}>
             <ChatWidget friendId={friendId} userId = {user._id} />
         </Box>
       </Box>

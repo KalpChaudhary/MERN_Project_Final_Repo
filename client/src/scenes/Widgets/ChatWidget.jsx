@@ -7,6 +7,7 @@ import {
   useTheme,
   InputBase,
   IconButton,
+  useMediaQuery,
 } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 
@@ -32,17 +33,23 @@ const ChatWidget = ({ friendId, userId }) => {
   );
 
   const user = useSelector((state) => state.user);
+  const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
+
+  // taking reference of latest msg
+  const scrollRef = useRef();
+
+  // scoll to latest msg when messages changes
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const getConversation = async () => {
-    const response = await fetch(
-      `${API_URL}/conversations/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/conversations/${userId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await response.json();
     const conversation = data.filter((conversation) =>
@@ -56,15 +63,12 @@ const ChatWidget = ({ friendId, userId }) => {
   const getMessages = async () => {
     if (conversationId === "") return;
 
-    const response = await fetch(
-      `${API_URL}/messages/${conversationId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/messages/${conversationId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await response.json();
     setMessages(data);
@@ -130,8 +134,12 @@ const ChatWidget = ({ friendId, userId }) => {
   }, [conversationId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <WidgetWrapper>
-      <FlexBetween>
+    <WidgetWrapper
+      sx={{
+        borderRadius: isNonMobileScreen ? "0.75rem" : "0",
+      }}
+    >
+      <FlexBetween pb={"0.8rem"}>
         <FlexBetween gap={"1.5rem"}>
           <UserImage image={friend.picturePath} size="65px" />
           <Box>
@@ -147,17 +155,30 @@ const ChatWidget = ({ friendId, userId }) => {
           <FiberManualRecordRoundedIcon sx={{ color: palette.error.main }} />
         )}
       </FlexBetween>
-      <Box p="2rem 0">
+      <Box
+        p="2rem 0"
+        sx={{
+          width: "100%",
+          height: isNonMobileScreen ? "60vh" : "70vh",
+          overflowY: "scroll",
+          pr: "1rem",
+
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
         {messages.map((msg) => (
-          <MessageWidget
-            key={msg._id}
-            msg={msg.text}
-            alignment={msg.sender === userId ? "right" : "left"}
-            time={msg.createdAt}
-          />
+          <div ref={scrollRef} key={msg._id}>
+            <MessageWidget
+              msg={msg.text}
+              alignment={msg.sender === userId ? "right" : "left"}
+              time={msg.createdAt}
+            />
+          </div>
         ))}
       </Box>
-      <FlexBetween gap={"1rem"}>
+      <FlexBetween pt={"0.8rem"} gap={"1rem"}>
         <InputBase
           sx={{
             backgroundColor: palette.neutral.light,
@@ -178,7 +199,10 @@ const ChatWidget = ({ friendId, userId }) => {
             color: palette.neutral.dark,
             padding: "0.8rem",
           }}
-          onClick={handleSendMessage}
+          onClick={() => {
+            handleSendMessage();
+            window.scrollBy(0, 100);
+          }}
         >
           <Send />
         </IconButton>

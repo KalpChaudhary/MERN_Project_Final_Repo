@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "config";
 
-const UserWidget = ({ userId, picturePath  }) => {
+const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const UserWidget = ({ userId, picturePath  }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    
+
     setUser(data);
   };
 
@@ -141,6 +141,7 @@ const UserWidget = ({ userId, picturePath  }) => {
       </Box>
     </WidgetWrapper>
   );
+
 };
 
 export default UserWidget;

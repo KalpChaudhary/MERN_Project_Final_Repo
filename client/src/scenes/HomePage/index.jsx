@@ -7,7 +7,6 @@ import PostsWidget from "scenes/Widgets/PostsWidget";
 import FriendListWidget from "scenes/Widgets/FriendListWidget";
 import StoryWidget from "scenes/Widgets/StoryWidget";
 
-
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
@@ -16,17 +15,18 @@ const HomePage = () => {
       <Navbar />
       <Box
         width="100%"
-        padding="2rem 6%"
+        padding={isNonMobileScreens ? "2rem 6%" : "1rem "}
         display={isNonMobileScreens ? "flex" : "block"}
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={_id} picturePath={picturePath}></UserWidget>
-        </Box>
+        {isNonMobileScreens && (
+          <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+            <UserWidget userId={_id} picturePath={picturePath}></UserWidget>
+          </Box>
+        )}
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <StoryWidget userId={_id} picturePath={picturePath}></StoryWidget>
           <MyPostWidget picturePath={picturePath}></MyPostWidget>
