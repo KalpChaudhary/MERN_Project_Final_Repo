@@ -10,7 +10,7 @@ import ProfilePage from "./scenes/ProfilePage";
 import ChatPage from "./scenes/ChatPage";
 import Navbar from "scenes/Navbar";
 import StoryPage from "scenes/StoryPage";
-
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -21,30 +21,32 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Routes>
-            {/* <Route path="/" element={<Navbar />} /> */}
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/navbar" element={<Navbar />} />
-            {/* <Route path="/home" element={<HomePage />} />
+          <SkeletonTheme baseColor="#202020" highlightColor="#444">
+            <Routes>
+              {/* <Route path="/" element={<Navbar />} /> */}
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/navbar" element={<Navbar />} />
+              {/* <Route path="/home" element={<HomePage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/chat/:friendId" element={<ChatPage />} /> */}
-            <Route
-              path="/home"
-              element={isAuth ? <HomePage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userId"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/chat/:friendId"
-              element={isAuth ? <ChatPage /> : <Navigate to="/" />}
-            />
-            <Route 
-            path="/story/:userId"
-            element={isAuth ? <StoryPage /> : <Navigate to="/" />}
-            />
-          </Routes>
+              <Route
+                path="/home"
+                element={isAuth ? <HomePage /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/profile/:userId"
+                element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/chat/:friendId"
+                element={isAuth ? <ChatPage /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/story/:userId"
+                element={isAuth ? <StoryPage /> : <Navigate to="/" />}
+              />
+            </Routes>
+          </SkeletonTheme>
         </ThemeProvider>
       </BrowserRouter>
     </div>
