@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "config";
 import UserWidgetSkeleton from "scenes/Skeletons/UserWidgetSkeleton";
 
-const UserWidget = ({ userId, picturePath }) => {
+const UserWidget = ({ userId= null, picturePath }) => {
   const [user, setUser] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +13,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
   const totalFriends = useSelector((state) => state.user.friends.length);
+  const storedUser = useSelector((state) => state.user);
 
   const getUser = async () => {
     const response = await fetch(`${API_URL}/users/${userId}`, {
@@ -21,6 +22,7 @@ const UserWidget = ({ userId, picturePath }) => {
     });
     const data = await response.json();
 
+    console.log("User data fetched");
     setUser(data);
 
     if (data) {
@@ -29,11 +31,13 @@ const UserWidget = ({ userId, picturePath }) => {
   };
 
   useEffect(() => {
-    getUser();
+    if (!userId) {
+      setUser(storedUser);
+      storedUser && setIsLoading(false);
+    } else {
+      getUser();
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-
-
 
   return (
     <>
@@ -45,11 +49,11 @@ const UserWidget = ({ userId, picturePath }) => {
           picturePath={picturePath}
           totalFriends={totalFriends}
           user={user}
-          userId={userId}
+          userId={userId ? userId : storedUser._id}
         />
       )}
     </>
-  );  
+  );
 };
 
 export default UserWidget;

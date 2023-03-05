@@ -19,6 +19,8 @@ export function UserWidgetWithData({
     user,
     userId
 }) {
+
+  // styles
   const { palette } = useTheme();
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
