@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { API_URL } from "config";
 
 const ProfilePage = () => {
-
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const { userId } = useParams();
   const [user, setUser] = useState(null);
@@ -24,7 +23,7 @@ const ProfilePage = () => {
 
     const data = await response.json();
     setUser(data);
-  }
+  };
 
   useEffect(() => {
     getUser();
@@ -51,7 +50,7 @@ const ProfilePage = () => {
           gap="1rem"
           flexBasis={isNonMobileScreens ? "26%" : undefined}
         >
-          <UserWidget userId={userId} picturePath={picturePath}></UserWidget>
+          <UserWidget userId={userId} />
           <FriendListWidget userId={userId} />
         </Box>
         <Box

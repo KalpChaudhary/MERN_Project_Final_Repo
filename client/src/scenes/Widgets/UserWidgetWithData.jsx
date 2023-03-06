@@ -6,6 +6,8 @@ import {
   WorkOutlineOutlined,
 } from "@mui/icons-material";
 
+import { useNavigate } from "react-router-dom";
+
 import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
@@ -13,8 +15,6 @@ import WidgetWrapper from "components/WidgetWrapper";
 
 
 export function UserWidgetWithData({
-  navigate,
-  picturePath,
   totalFriends,
     user,
     userId
@@ -26,6 +26,9 @@ export function UserWidgetWithData({
   const medium = palette.neutral.medium;
   const main = palette.primary.main;
 
+  // Navigation
+  const navigate = useNavigate();
+
 
   const {
     firstName,
@@ -34,6 +37,7 @@ export function UserWidgetWithData({
     occupation,
     impressions,
     viewedProfile,
+    picturePath
   } = user;
 
   return (

@@ -1,16 +1,15 @@
 import { UserWidgetWithData } from "./UserWidgetWithData";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { API_URL } from "config";
 import UserWidgetSkeleton from "scenes/Skeletons/UserWidgetSkeleton";
 
-const UserWidget = ({ userId= null, picturePath }) => {
+const UserWidget = ({ userId= null }) => {
   const [user, setUser] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const navigate = useNavigate();
+ 
   const token = useSelector((state) => state.token);
   const totalFriends = useSelector((state) => state.user.friends.length);
   const storedUser = useSelector((state) => state.user);
@@ -31,7 +30,7 @@ const UserWidget = ({ userId= null, picturePath }) => {
   };
 
   useEffect(() => {
-    if (!userId) {
+    if (!userId || userId === storedUser._id) {
       setUser(storedUser);
       storedUser && setIsLoading(false);
     } else {
@@ -45,8 +44,6 @@ const UserWidget = ({ userId= null, picturePath }) => {
         <UserWidgetSkeleton />
       ) : (
         <UserWidgetWithData
-          navigate={navigate}
-          picturePath={picturePath}
           totalFriends={totalFriends}
           user={user}
           userId={userId ? userId : storedUser._id}

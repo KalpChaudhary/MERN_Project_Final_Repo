@@ -3,13 +3,13 @@ import {
   PersonRemoveOutlined,
   ChatBubbleOutline,
 } from "@mui/icons-material";
-import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
 import { Box, Typography, IconButton, useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "config";
 
 const Friend = ({ friendId, name, subTitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Friend = ({ friendId, name, subTitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `${process.env.API_URL}/users/${_id}/${friendId}`,
+      `${API_URL}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
